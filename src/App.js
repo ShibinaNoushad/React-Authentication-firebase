@@ -1,18 +1,26 @@
-import { Switch, Route } from "react-router-dom";
+import { useContext } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import Layout from "./components/Layout/Layout";
 import UserProfile from "./components/Profile/UserProfile";
 import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
-import CartProvider from "./Store/CartProvider";
+import AuthContext from "./Store/AuthContext";
 
 function App() {
+  const authCtx = useContext(AuthContext);
   return (
     <Layout>
       <Switch>
         <Route path="/" exact>
           <HomePage />
         </Route>
+        {authCtx.isLoggedIn && (
+          <Route path="/auth" exact>
+            <Redirect to="/profile" />
+          </Route>
+        )}
+
         <Route path="/auth">
           <AuthPage />
         </Route>
