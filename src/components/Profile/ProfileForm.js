@@ -3,21 +3,21 @@ import AuthContext from "../../Store/AuthContext";
 import classes from "./ProfileForm.module.css";
 
 const ProfileForm = () => {
+  const newPasswordInputRef = useRef();
   const authCtx = useContext(AuthContext);
-  const passwordInputRef = useRef("");
-  const token = authCtx.token;
 
-  const changePassword = (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
-    const enteredPassword = passwordInputRef.current.valueOf;
+    const enteredNewPassword = newPasswordInputRef.current.value;
+
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBykkHuQGFHYvxHkPjT9Uvhn4pMOHOxuE4",
       {
         method: "POST",
         body: JSON.stringify({
-          idToken: token,
-          password: enteredPassword,
-          returnSecureToken: true,
+          idToken: authCtx.token,
+          password: enteredNewPassword,
+          returnSecureToken: false,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -46,13 +46,13 @@ const ProfileForm = () => {
       });
   };
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes.control}>
         <label htmlFor="new-password">New Password</label>
-        <input type="password" id="new-password" ref={passwordInputRef} />
+        <input type="password" id="new-password" ref={newPasswordInputRef} />
       </div>
       <div className={classes.action}>
-        <button onClick={changePassword}>Change Password</button>
+        <button>Change Password</button>
       </div>
     </form>
   );

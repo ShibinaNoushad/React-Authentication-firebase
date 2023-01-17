@@ -20,6 +20,11 @@ function App() {
             <Redirect to="/profile" />
           </Route>
         )}
+        {!authCtx.isLoggedIn && (
+          <Route path="/profile" exact>
+            <Redirect to="/" />
+          </Route>
+        )}
 
         <Route path="/auth">
           <AuthPage />
