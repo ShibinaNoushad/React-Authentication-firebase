@@ -10,7 +10,7 @@ const MainNavigation = () => {
   const isLoggedIn = authCtx.isLoggedIn;
   const removeToken = () => {
     authCtx.logout();
-    history.replace("/auth");
+    // history.replace("/auth");
   };
 
   return (
