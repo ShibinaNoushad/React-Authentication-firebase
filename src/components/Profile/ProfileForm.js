@@ -44,7 +44,6 @@ const ProfileForm = () => {
       })
       .then((data) => {
         console.log(data);
-        history.replace("/");
       })
       .catch((err) => {
         alert(err.message);

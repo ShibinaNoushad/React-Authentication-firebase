@@ -63,7 +63,7 @@ const AuthForm = () => {
       })
       .then((data) => {
         authCtx.login(data.idToken);
-        history.replace("/")
+        // history.replace("/")
       })
       .catch((err) => {
         alert(err.message);

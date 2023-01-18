@@ -16,11 +16,17 @@ function App() {
           <HomePage />
         </Route>
 
-        <Route path="/auth">
-          <AuthPage />
-        </Route>
+        {!authCtx.isLoggedIn && (
+          <Route path="/auth">
+            <AuthPage />
+          </Route>
+        )}
         <Route path="/profile">
-          <UserProfile />
+          {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+          {authCtx.isLoggedIn && <UserProfile />}
+        </Route>
+        <Route path="*">
+          <Redirect to="/" />
         </Route>
       </Switch>
     </Layout>
